@@ -31,3 +31,31 @@ function actualizarListaAmigos() {
         listaAmigos.appendChild(li);
     });
 }
+
+function sortearAmigo() {
+    if (amigos.length < 2) {
+        alert('Necesitas al menos 2 amigos para realizar el sorteo.');
+        return;
+    }
+
+    const resultado = document.getElementById('resultado');
+    resultado.innerHTML = '';
+
+    const amigosSorteados = [...amigos];
+    const asignaciones = {};
+
+    for (let i = 0; i < amigosSorteados.length; i++) {
+        let j = i;
+        while (j === i) {
+            j = Math.floor(Math.random() * amigosSorteados.length);
+        }
+        asignaciones[amigosSorteados[i]] = amigosSorteados[j];
+        amigosSorteados.splice(j, 1);
+    }
+
+    for (const [amigo, amigoSecreto] of Object.entries(asignaciones)) {
+        const li = document.createElement('li');
+        li.textContent = `${amigo} -> ${amigoSecreto}`;
+        resultado.appendChild(li);
+    }
+}
